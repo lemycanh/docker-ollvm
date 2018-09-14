@@ -117,7 +117,7 @@ if (( DOCKER_MODE )); then
     cmake -GNinja "${CMAKE_ARGS[@]}" "$OLLVM_DIR"
   fi
 
-  ninja -j3
+  ninja -j 8
   if (( BUILD_ONLY )); then
     echo "Build done!"
     exit 0
@@ -140,7 +140,7 @@ else # script called from host
 
   DOCKER_IMAGE_NAME='nickdiego/ollvm-build'
   DOCKER_CONTAINER_NAME='ollvm-build'
-  DOCKER_OPTS=( '--name' $DOCKER_CONTAINER_NAME --rm  -v "$OLLVM_DIR:/ollvm/src" )
+  DOCKER_OPTS=( '--name' $DOCKER_CONTAINER_NAME --rm  -v "$OLLVM_DIR:/ollvm/src" -v "$PWD:/scripts")
 
   echo "##"
   echo "## Starting O-LLVM build.."
